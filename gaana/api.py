@@ -175,17 +175,24 @@ class GaanaAPI:
     def get_trending(self, language: str = "hi", limit: int = 20) -> List[Dict]:
         """Get trending tracks."""
         result = self._request("trending", {"language": language, "limit": limit})
-        return result.get("data", []) if result.get("success") else []
+        # Response is {"tracks": [...]} directly
+        return result.get("tracks", result.get("data", []))
     
     def get_charts(self, limit: int = 20) -> List[Dict]:
         """Get top charts/playlists."""
         result = self._request("charts", {"limit": limit})
-        return result.get("data", []) if result.get("success") else []
+        # Response is a list directly or {"data": [...]}
+        if isinstance(result, list):
+            return result
+        return result.get("data", [])
     
     def get_new_releases(self, language: str = "hi") -> Dict:
         """Get new releases (songs and albums)."""
         result = self._request("new-releases", {"language": language})
-        return result.get("data", {}) if result.get("success") else {}
+        # Response is {"tracks": [...], "albums": [...]} directly
+        if "tracks" in result or "albums" in result:
+            return result
+        return result.get("data", {})
     
     # ==================== Health ====================
     

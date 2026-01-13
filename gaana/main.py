@@ -453,3 +453,102 @@ class GaanaDownloader:
             return []
         
         return []
+    
+    def download_trending(self, language: str = "hi", limit: int = 20) -> List[str]:
+        """
+        Download trending tracks.
+        
+        Args:
+            language: Language code (hi, en, pa, etc.)
+            limit: Max tracks to download
+        
+        Returns:
+            List of paths to downloaded files
+        """
+        try:
+            info(f"Fetching trending tracks ({language})...")
+            tracks = self.api.get_trending(language, limit)
+            
+            if not tracks:
+                print_error("No trending tracks found")
+                return []
+            
+            total_tracks = min(len(tracks), limit)
+            info(f"Downloading {total_tracks} trending tracks...")
+            
+            collection_folder = sanitize_path(f"[Trending] {language.upper()}")
+            downloaded = []
+            
+            for idx, track in enumerate(tracks[:limit], 1):
+                track_id = track.get("track_id") or track.get("seokey")
+                if not track_id:
+                    warning(f"Skipping track {idx}: no ID found")
+                    continue
+                
+                result = self.download_track(
+                    str(track_id),
+                    track_num=idx,
+                    total_tracks=total_tracks,
+                    track_data=track,
+                    collection_folder=collection_folder,
+                )
+                
+                if result:
+                    downloaded.append(result)
+            
+            success(f"Trending download complete: {len(downloaded)} tracks")
+            return downloaded
+            
+        except GaanaError as e:
+            print_error(f"Trending download failed: {e}")
+            return []
+    
+    def download_new_releases(self, language: str = "hi", limit: int = 20) -> List[str]:
+        """
+        Download new release tracks.
+        
+        Args:
+            language: Language code (hi, en, pa, etc.)
+            limit: Max tracks to download
+        
+        Returns:
+            List of paths to downloaded files
+        """
+        try:
+            info(f"Fetching new releases ({language})...")
+            data = self.api.get_new_releases(language)
+            
+            tracks = data.get("tracks", [])
+            if not tracks:
+                print_error("No new release tracks found")
+                return []
+            
+            total_tracks = min(len(tracks), limit)
+            info(f"Downloading {total_tracks} new release tracks...")
+            
+            collection_folder = sanitize_path(f"[New Releases] {language.upper()}")
+            downloaded = []
+            
+            for idx, track in enumerate(tracks[:limit], 1):
+                track_id = track.get("track_id") or track.get("seokey")
+                if not track_id:
+                    warning(f"Skipping track {idx}: no ID found")
+                    continue
+                
+                result = self.download_track(
+                    str(track_id),
+                    track_num=idx,
+                    total_tracks=total_tracks,
+                    track_data=track,
+                    collection_folder=collection_folder,
+                )
+                
+                if result:
+                    downloaded.append(result)
+            
+            success(f"New releases download complete: {len(downloaded)} tracks")
+            return downloaded
+            
+        except GaanaError as e:
+            print_error(f"New releases download failed: {e}")
+            return []

@@ -42,6 +42,9 @@ def print_colored_help():
         ("-q, --quality", "LEVEL", "Audio quality: low, medium, [green]high[/green]"),
         ("-f, --format", "FMT", "Output format (see FORMATS below)"),
         ("-o, --output", "DIR", "Output directory [dim](default: ./Music)[/dim]"),
+        ("--trending", "LANG", "Download trending tracks [dim](hi, en, pa)[/dim]"),
+        ("--new-releases", "LANG", "Download new releases [dim](hi, en, pa)[/dim]"),
+        ("--limit", "NUM", "Limit for trending/new-releases [dim](default: 10)[/dim]"),
         ("--workers", "NUM", "Parallel download workers [dim](default: 4)[/dim]"),
         ("--no-lyrics", "", "Don't fetch synced lyrics from LRCLIB"),
         ("--no-banner", "", "Don't show ASCII art banner"),
@@ -168,12 +171,29 @@ def create_parser() -> argparse.ArgumentParser:
         help="Number of parallel download workers (default: 4)",
     )
     
+    # Trending/New Releases
+    parser.add_argument(
+        "--trending",
+        metavar="LANG",
+        nargs="?",
+        const="hi",
+        help="Download trending tracks (language: hi, en, pa, etc.)",
+    )
+    
+    parser.add_argument(
+        "--new-releases",
+        metavar="LANG",
+        nargs="?",
+        const="hi",
+        help="Download new releases (language: hi, en, pa, etc.)",
+    )
+    
     # Search limit
     parser.add_argument(
         "--limit",
         type=int,
         default=10,
-        help="Search results limit (default: 10)",
+        help="Limit for search/trending/new-releases (default: 10)",
     )
     
     # Flags
@@ -285,7 +305,7 @@ def main():
         print_banner()
     
     # Validate arguments - show colored help if nothing provided
-    if not args.url_or_id and not args.search:
+    if not args.url_or_id and not args.search and not args.trending and not getattr(args, 'new_releases', None):
         print_colored_help()
         sys.exit(1)
     
@@ -309,7 +329,11 @@ def main():
             warning("API may be unavailable, proceeding anyway...")
         
         # Execute based on mode
-        if args.search:
+        if args.trending:
+            downloader.download_trending(args.trending, args.limit)
+        elif getattr(args, 'new_releases', None):
+            downloader.download_new_releases(args.new_releases, args.limit)
+        elif args.search:
             if args.show_results:
                 run_search(args, api)
             else:
