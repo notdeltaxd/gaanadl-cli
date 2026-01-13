@@ -259,7 +259,26 @@ def run_download(args, downloader: GaanaDownloader):
             content_type = detected_type
             info(f"Detected content type: {content_type}")
     
-    # Normalize type names
+    api = downloader.api
+    
+    # Handle --show-results for playlist/album
+    if args.show_results:
+        from .printer import print_playlist_info, print_tracks_list, print_album_info
+        
+        if content_type == "playlist":
+            playlist = api.get_playlist(identifier)
+            print_playlist_info(playlist)
+            tracks = playlist.get("tracks", [])[:args.limit]
+            print_tracks_list(tracks, f"📋 Playlist Tracks (showing {len(tracks)})")
+            return
+        elif content_type == "album":
+            album = api.get_album(identifier)
+            print_album_info(album)
+            tracks = album.get("tracks", [])[:args.limit]
+            print_tracks_list(tracks, f"💿 Album Tracks")
+            return
+    
+    # Normalize type names and download
     if content_type in ["track", "song", "auto"]:
         downloader.download_track(identifier)
     elif content_type == "album":
@@ -341,9 +360,20 @@ def main():
         
         # Execute based on mode
         if args.trending:
-            downloader.download_trending(args.trending, args.limit)
+            if args.show_results:
+                tracks = api.get_trending(args.trending, args.limit)
+                from .printer import print_tracks_list
+                print_tracks_list(tracks, f"🔥 Trending Tracks ({args.trending.upper()})")
+            else:
+                downloader.download_trending(args.trending, args.limit)
         elif getattr(args, 'new_releases', None):
-            downloader.download_new_releases(args.new_releases, args.limit)
+            if args.show_results:
+                data = api.get_new_releases(args.new_releases)
+                tracks = data.get("tracks", [])[:args.limit]
+                from .printer import print_tracks_list
+                print_tracks_list(tracks, f"🎁 New Releases ({args.new_releases.upper()})")
+            else:
+                downloader.download_new_releases(args.new_releases, args.limit)
         elif args.search:
             if args.show_results:
                 run_search(args, api)

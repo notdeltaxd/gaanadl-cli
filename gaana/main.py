@@ -282,8 +282,11 @@ class GaanaDownloader:
                 print_error("No tracks found in playlist")
                 return []
             
+            # Show playlist info
+            from .printer import print_playlist_info
+            print_playlist_info(playlist)
+            
             total_tracks = len(tracks)
-            info(f"Playlist: {title}")
             info(f"Downloading {total_tracks} tracks...")
             
             # Create playlist folder

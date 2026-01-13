@@ -112,6 +112,30 @@ def print_album_info(album: dict):
     console.print(panel)
 
 
+def print_playlist_info(playlist: dict):
+    """Print playlist information."""
+    title = playlist.get("title", playlist.get("name", "Unknown"))
+    track_count = playlist.get("track_count", len(playlist.get("tracks", [])))
+    play_count = playlist.get("play_count", "Unknown")
+    favorite_count = playlist.get("favorite_count", "0")
+    language = playlist.get("language", "Unknown")
+    
+    content = Text()
+    content.append("Playlist: ", style="dim")
+    content.append(f"{title}\n", style="bold magenta")
+    content.append("Tracks: ", style="dim")
+    content.append(f"{track_count}\n")
+    content.append("Language: ", style="dim")
+    content.append(f"{language}\n")
+    content.append("Plays: ", style="dim")
+    content.append(f"{play_count}  ")
+    content.append("❤ ", style="red")
+    content.append(f"{favorite_count}")
+    
+    panel = Panel(content, title="[bold]Playlist Info[/bold]", border_style="magenta")
+    console.print(panel)
+
+
 def print_search_results(results: dict, result_type: str = "songs"):
     """Print search results in a table."""
     items = results.get(result_type, [])
@@ -179,3 +203,29 @@ def create_simple_progress():
         TaskProgressColumn(),
         console=console,
     )
+
+
+def print_tracks_list(tracks: list, title: str = "Tracks"):
+    """Print a list of tracks in a table format."""
+    if not tracks:
+        warning("No tracks found.")
+        return
+    
+    table = Table(title=title)
+    table.add_column("#", style="dim", width=4)
+    table.add_column("Title", style="track")
+    table.add_column("Artist", style="artist")
+    table.add_column("Album", style="album")
+    table.add_column("Duration", style="dim", justify="right")
+    
+    for idx, track in enumerate(tracks, 1):
+        title_str = track.get("title", "Unknown")
+        artist = track.get("artists", track.get("artist", "Unknown"))
+        album = track.get("album", "-")
+        duration_secs = int(track.get("duration", 0))
+        duration = f"{duration_secs // 60}:{duration_secs % 60:02d}" if duration_secs else "-"
+        
+        table.add_row(str(idx), title_str, artist, album, duration)
+    
+    console.print(table)
+
