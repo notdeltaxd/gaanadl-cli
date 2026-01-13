@@ -33,10 +33,10 @@ setup(
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
     author="notdeltaxd",
-    url="https://github.com/notdeltaxd/gaana-cli",
+    url="https://github.com/notdeltaxd/Gaana-CLI",
     project_urls={
-        "Bug Reports": "https://github.com/notdeltaxd/gaana-cli/issues",
-        "Source": "https://github.com/notdeltaxd/gaana-cli",
+        "Bug Reports": "https://github.com/notdeltaxd/Gaana-CLI/issues",
+        "Source": "https://github.com/notdeltaxd/Gaana-CLI",
     },
     license="MIT",
     keywords=["gaana", "music", "downloader", "cli", "flac", "lyrics"],

@@ -5,7 +5,7 @@
 
 Download high-quality music from Gaana with metadata and synced lyrics.
 
-![Demo](https://raw.githubusercontent.com/notdeltaxd/gaana-cli/main/demo.gif)
+![Demo](https://raw.githubusercontent.com/notdeltaxd/Gaana-CLI/main/demo.gif)
 
 ## Features
 
@@ -26,7 +26,7 @@ pip install gaana-cli
 
 Or install from source:
 ```bash
-git clone https://github.com/notdeltaxd/gaana-cli.git
+git clone https://github.com/notdeltaxd/Gaana-CLI.git
 cd gaana-cli
 pip install -e .
 ```
