@@ -242,8 +242,10 @@ def run_search(args, api: GaanaAPI):
     
     # Determine which types to show based on -t flag
     content_type = args.type
-    if content_type in ["track", "song", "auto"]:
+    if content_type == "auto":
         types_to_show = ["songs", "albums", "playlists", "artists"]  # Show all for auto
+    elif content_type in ["track", "song"]:
+        types_to_show = ["songs"]
     elif content_type == "album":
         types_to_show = ["albums"]
     elif content_type == "playlist":
@@ -375,6 +377,7 @@ def main():
         if args.trending:
             if args.show_results:
                 tracks = api.get_trending(args.trending, args.limit)
+                tracks = tracks[:args.limit]  # Ensure limit is respected
                 from .printer import print_tracks_list
                 print_tracks_list(tracks, f"🔥 Trending Tracks ({args.trending.upper()})")
             else:
