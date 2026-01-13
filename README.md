@@ -53,8 +53,6 @@ gaana manjha -f mp3
 ```bash
 # Download trending tracks (default: Hindi)
 gaana --trending
-
-# Download trending in different language
 gaana --trending en
 gaana --trending pa
 
@@ -66,6 +64,26 @@ gaana --new-releases en
 gaana --trending hi --limit 5
 gaana --new-releases --limit 10
 ```
+
+### Preview Mode
+
+Use `--show-results` to preview content **without downloading**:
+
+```bash
+# Preview trending tracks
+gaana --trending hi --limit 10 --show-results
+
+# Preview new releases
+gaana --new-releases en --show-results
+
+# Preview search results
+gaana -s "arijit singh" -t artist --show-results
+
+# Preview playlist/album tracks
+gaana https://gaana.com/playlist/... --show-results
+```
+
+> **Note:** When using `--show-results`, no files will be downloaded. This is for preview only.
 
 Run `gaana --help` for all options.
 
