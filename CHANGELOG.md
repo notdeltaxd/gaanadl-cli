@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-01-13
+
+### Added
+- Rich version output with banner (gaana -v)
+- Updated ASCII banner to show "gaanadl"
+
 ## [1.1.0] - 2026-01-13
 
 ### Added

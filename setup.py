@@ -5,7 +5,7 @@ gaanadl-cli setup script.
 from setuptools import find_packages, setup
 import os
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 def read_file(filename):
     try:
@@ -32,7 +32,7 @@ setup(
     description="Download high-quality music from Gaana with metadata and synced lyrics",
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
-    author="notdeltaxd",
+    author="notdelta_xd",
     url="https://github.com/notdeltaxd/gaanadl-cli",
     project_urls={
         "Bug Reports": "https://github.com/notdeltaxd/gaanadl-cli/issues",
