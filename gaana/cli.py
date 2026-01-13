@@ -308,24 +308,70 @@ def run_download(args, downloader: GaanaDownloader):
 
 
 def run_search_download(args, downloader: GaanaDownloader):
-    """Search and download first result."""
+    """Search and let user select which result to download."""
+    from .printer import print_search_results
+    
     content_type = args.type
     
     # Normalize type
     if content_type in ["track", "song", "auto"]:
-        content_type = "songs"
+        search_type = "songs"
     elif content_type == "album":
-        content_type = "albums"
+        search_type = "albums"
     elif content_type == "playlist":
-        content_type = "playlists"
+        search_type = "playlists"
     elif content_type == "artist":
-        content_type = "artists"
+        search_type = "artists"
+    else:
+        search_type = "songs"
     
-    downloader.search_and_download(
-        args.search,
-        content_type=content_type,
-        limit=1,
-    )
+    # Search and get results
+    api = downloader.api
+    results = api.search(args.search, limit=args.limit or 10)
+    
+    items = results.get(search_type, [])
+    if not items:
+        print_error(f"No {search_type} found for: {args.search}")
+        return
+    
+    # Show results
+    print_search_results(results, search_type)
+    console.print()
+    
+    # Ask user to select
+    console.print("[bold cyan]Enter number to download (or 'q' to quit):[/bold cyan] ", end="")
+    try:
+        choice = input().strip()
+        
+        if choice.lower() == 'q':
+            console.print("[dim]Cancelled[/dim]")
+            return
+        
+        idx = int(choice) - 1
+        if idx < 0 or idx >= len(items):
+            print_error(f"Invalid selection. Enter 1-{len(items)}")
+            return
+        
+        selected = items[idx]
+        
+        # Download the selected item
+        if search_type == "songs":
+            seokey = selected.get("seokey") or selected.get("track_id")
+            downloader.download_track(str(seokey))
+        elif search_type == "albums":
+            seokey = selected.get("seokey") or selected.get("album_id")
+            downloader.download_album(str(seokey), limit=args.limit)
+        elif search_type == "playlists":
+            seokey = selected.get("seokey") or selected.get("playlist_id")
+            downloader.download_playlist(str(seokey), limit=args.limit)
+        elif search_type == "artists":
+            seokey = selected.get("seokey") or selected.get("artist_id")
+            downloader.download_artist_top(str(seokey), limit=args.limit)
+            
+    except ValueError:
+        print_error("Please enter a valid number")
+    except EOFError:
+        console.print("[dim]Cancelled[/dim]")
 
 
 def main():
