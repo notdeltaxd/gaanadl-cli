@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2026-01-14
+
+### Fixed
+- `--limit` flag now works for playlist, album, and artist downloads (not just trending/new-releases)
+
 ## [1.3.0] - 2026-01-14
 
 ### Added

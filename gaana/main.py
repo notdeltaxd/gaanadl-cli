@@ -208,12 +208,13 @@ class GaanaDownloader:
             print_error(f"Unexpected error: {e}")
             return None
     
-    def download_album(self, identifier: str) -> List[str]:
+    def download_album(self, identifier: str, limit: int = 0) -> List[str]:
         """
         Download all tracks from an album.
         
         Args:
             identifier: Album seokey or URL
+            limit: Max tracks to download (0 = all)
         
         Returns:
             List of paths to downloaded files
@@ -234,6 +235,10 @@ class GaanaDownloader:
             if not tracks:
                 print_error("No tracks found in album")
                 return []
+            
+            # Apply limit if specified
+            if limit > 0:
+                tracks = tracks[:limit]
             
             total_tracks = len(tracks)
             info(f"Downloading {total_tracks} tracks...")
@@ -274,12 +279,13 @@ class GaanaDownloader:
             print_error(f"Album download failed: {e}")
             return []
     
-    def download_playlist(self, identifier: str) -> List[str]:
+    def download_playlist(self, identifier: str, limit: int = 0) -> List[str]:
         """
         Download all tracks from a playlist.
         
         Args:
             identifier: Playlist seokey or URL
+            limit: Max tracks to download (0 = all)
         
         Returns:
             List of paths to downloaded files
@@ -303,6 +309,10 @@ class GaanaDownloader:
             # Show playlist info
             from .printer import print_playlist_info
             print_playlist_info(playlist)
+            
+            # Apply limit if specified
+            if limit > 0:
+                tracks = tracks[:limit]
             
             total_tracks = len(tracks)
             info(f"Downloading {total_tracks} tracks...")

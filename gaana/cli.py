@@ -297,11 +297,11 @@ def run_download(args, downloader: GaanaDownloader):
     if content_type in ["track", "song", "auto"]:
         downloader.download_track(identifier)
     elif content_type == "album":
-        downloader.download_album(identifier)
+        downloader.download_album(identifier, limit=args.limit)
     elif content_type == "playlist":
-        downloader.download_playlist(identifier)
+        downloader.download_playlist(identifier, limit=args.limit)
     elif content_type == "artist":
-        downloader.download_artist_top(identifier)
+        downloader.download_artist_top(identifier, limit=args.limit)
 
 
 def run_search_download(args, downloader: GaanaDownloader):
