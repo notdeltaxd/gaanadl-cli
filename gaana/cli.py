@@ -25,13 +25,13 @@ def print_colored_help():
     
     # Usage
     console.print("[bold yellow]USAGE:[/bold yellow]")
-    console.print("  gaana [cyan]<url_or_id>[/cyan] [dim][options][/dim]")
+    console.print("  gaana [cyan]<url_or_seokey>[/cyan] [dim][options][/dim]")
     console.print("  gaana [cyan]-s <query>[/cyan] [dim][options][/dim]")
     console.print()
     
     # Arguments
     console.print("[bold yellow]ARGUMENTS:[/bold yellow]")
-    console.print("  [cyan]url_or_id[/cyan]        Gaana URL, seokey, or track ID")
+    console.print("  [cyan]url_or_seokey[/cyan]    Gaana URL or seokey (e.g. manjha, tera-fitoor)")
     console.print()
     
     # Options
@@ -96,7 +96,7 @@ def create_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "url_or_id",
         nargs="?",
-        help="Gaana URL, seokey, or track ID",
+        help="Gaana URL or seokey",
     )
     
     # Search mode
