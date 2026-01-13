@@ -2,10 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2026-01-13
+
+### Added
+- `--show-results` flag now works with `--trending`, `--new-releases`, playlist URLs, and album URLs
+- Preview content without downloading using `--show-results`
+- `print_playlist_info` panel for playlists (shows title, track count, plays, favorites)
+- `print_tracks_list` table for displaying track lists
+
+### Changed
+- Author updated to `notdelta_xd`
+
 ## [1.1.1] - 2026-01-13
 
 ### Added
-- Rich version output with banner (gaana -v)
+- Rich version output with banner (`gaana -v`)
 - Updated ASCII banner to show "gaanadl"
 
 ## [1.1.0] - 2026-01-13

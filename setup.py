@@ -5,7 +5,7 @@ gaanadl-cli setup script.
 from setuptools import find_packages, setup
 import os
 
-VERSION = "1.1.1"
+VERSION = "1.2.0"
 
 def read_file(filename):
     try:
