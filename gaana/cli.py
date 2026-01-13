@@ -240,8 +240,21 @@ def run_search(args, api: GaanaAPI):
         print_error("No results found")
         return
     
-    # Display all result types
-    for result_type in ["songs", "albums", "playlists", "artists"]:
+    # Determine which types to show based on -t flag
+    content_type = args.type
+    if content_type in ["track", "song", "auto"]:
+        types_to_show = ["songs", "albums", "playlists", "artists"]  # Show all for auto
+    elif content_type == "album":
+        types_to_show = ["albums"]
+    elif content_type == "playlist":
+        types_to_show = ["playlists"]
+    elif content_type == "artist":
+        types_to_show = ["artists"]
+    else:
+        types_to_show = ["songs", "albums", "playlists", "artists"]
+    
+    # Display filtered result types
+    for result_type in types_to_show:
         if results.get(result_type):
             print_search_results(results, result_type)
             console.print()
