@@ -44,8 +44,9 @@ def print_colored_help():
         ("-o, --output", "DIR", "Output directory [dim](default: ./Music)[/dim]"),
         ("--trending", "LANG", "Download trending tracks [dim](hi, en, pa)[/dim]"),
         ("--new-releases", "LANG", "Download new releases [dim](hi, en, pa)[/dim]"),
-        ("--limit", "NUM", "Limit for trending/new-releases [dim](default: 10)[/dim]"),
-        ("--workers", "NUM", "Parallel download workers [dim](default: 4)[/dim]"),
+        ("--limit", "NUM", "Limit tracks to download [dim](works with all commands)[/dim]"),
+        ("--show-results", "", "Preview results without downloading"),
+        ("--workers", "NUM", "Parallel download workers [dim](default: 8)[/dim]"),
         ("--no-lyrics", "", "Don't fetch synced lyrics from LRCLIB"),
         ("--no-banner", "", "Don't show ASCII art banner"),
         ("-v, --version", "", "Show version and exit"),
@@ -70,10 +71,12 @@ def print_colored_help():
     examples = [
         ("gaana [cyan]manjha[/cyan]", "Download track by seokey"),
         ("gaana [cyan]https://gaana.com/song/manjha[/cyan]", "Download from URL"),
-        ("gaana [cyan]-s \"arijit singh\"[/cyan] --show-results", "Search and show results"),
+        ("gaana [cyan]-s \"arijit singh\"[/cyan] --show-results", "Search and preview results"),
         ("gaana [cyan]-s \"kesariya\"[/cyan] -t album", "Search and download album"),
         ("gaana [cyan]manjha[/cyan] -f mp3 -o ./Music", "Download as MP3"),
-        ("gaana [cyan]https://gaana.com/playlist/...[/cyan]", "Download entire playlist"),
+        ("gaana [cyan]https://gaana.com/playlist/...[/cyan] --limit 20", "Download first 20 tracks from playlist"),
+        ("gaana [cyan]--trending hi[/cyan] --limit 10", "Download 10 trending Hindi tracks"),
+        ("gaana [cyan]--new-releases en[/cyan] --show-results", "Preview new English releases"),
     ]
     for cmd, desc in examples:
         console.print(f"  {cmd}")
