@@ -119,6 +119,7 @@ class AudioConverter:
         cmd = [
             "ffmpeg",
             "-y",                           # Overwrite output
+            "-threads", "0",                # Use all CPU cores
             "-i", input_path,               # Input file
             "-vn",                          # No video
             "-c:a", "flac",                 # FLAC codec
@@ -162,6 +163,7 @@ class AudioConverter:
         cmd = [
             "ffmpeg",
             "-y",
+            "-threads", "0",                # Use all CPU cores
             "-i", input_path,
             "-vn",
             "-c:a", "libmp3lame",
@@ -237,6 +239,7 @@ class AudioConverter:
         cmd = [
             "ffmpeg",
             "-y",
+            "-threads", "0",                # Use all CPU cores
             "-i", input_path,
             "-vn",
             "-c:a", codec,
@@ -267,6 +270,7 @@ class AudioConverter:
         cmd = [
             "ffmpeg",
             "-y",
+            "-threads", "0",                # Use all CPU cores
             "-i", input_path,
             "-vn",
             "-c:a", codec,
@@ -303,6 +307,7 @@ class AudioConverter:
         cmd = [
             "ffmpeg",
             "-y",
+            "-threads", "0",                # Use all CPU cores
             "-i", input_path,
             "-vn",
             "-c:a", codec,

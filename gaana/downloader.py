@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from .errors import DownloadError
 from .printer import info, warning, error as print_error, create_download_progress
@@ -19,14 +21,30 @@ from .utils import ensure_dir
 class HLSDownloader:
     """Downloads HLS streams and combines segments."""
     
-    def __init__(self, workers: int = 4, timeout: int = 30):
+    def __init__(self, workers: int = 8, timeout: int = 30):
         self.workers = workers
         self.timeout = timeout
-        self.session = requests.Session()
-        self.session.headers.update({
+        self.chunk_size = 65536  # 64KB chunks for faster downloads
+        self.session = self._create_session()
+    
+    def _create_session(self) -> requests.Session:
+        """Create an optimized HTTP session with connection pooling."""
+        session = requests.Session()
+        session.headers.update({
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
             "Accept": "*/*",
         })
+        
+        # Connection pooling and retry strategy
+        adapter = HTTPAdapter(
+            pool_connections=20,
+            pool_maxsize=20,
+            max_retries=Retry(total=2, backoff_factor=0.1),
+        )
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        
+        return session
     
     def _download_segment(self, url: str, output_path: str, retries: int = 3) -> bool:
         """
@@ -46,7 +64,7 @@ class HLSDownloader:
                 response.raise_for_status()
                 
                 with open(output_path, "wb") as f:
-                    for chunk in response.iter_content(chunk_size=8192):
+                    for chunk in response.iter_content(chunk_size=self.chunk_size):
                         if chunk:
                             f.write(chunk)
                 
