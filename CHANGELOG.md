@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2026-01-13
+
+### Fixed
+- Search `--show-results` now respects `-t` type filter (e.g., `-t artist` only shows artists)
+
 ## [1.2.0] - 2026-01-13
 
 ### Added
