@@ -1,15 +1,14 @@
-# gaana-cli
+# gaanadl-cli
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Download high-quality music from Gaana with metadata and synced lyrics.
 
-![Demo](https://raw.githubusercontent.com/notdeltaxd/gaanadl-cli/main/demo.gif)
-
 ## Features
 
 - 🎵 Download tracks, albums, playlists, and artist discographies
+- 🔥 Trending and new releases download
 - 🔍 Search across Gaana's catalog
 - 🎤 Synced lyrics from [LRCLIB](https://lrclib.net)
 - 📀 11 output formats (FLAC, MP3, Opus, and more)
@@ -47,6 +46,25 @@ gaana -s "arijit singh" -t album
 
 # Specify format
 gaana manjha -f mp3
+```
+
+### Trending & New Releases
+
+```bash
+# Download trending tracks (default: Hindi)
+gaana --trending
+
+# Download trending in different language
+gaana --trending en
+gaana --trending pa
+
+# Download new releases
+gaana --new-releases
+gaana --new-releases en
+
+# Limit number of tracks
+gaana --trending hi --limit 5
+gaana --new-releases --limit 10
 ```
 
 Run `gaana --help` for all options.

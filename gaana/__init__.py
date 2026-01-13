@@ -2,7 +2,7 @@
 gaana-cli: Download music from Gaana with metadata and synced lyrics.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "notdeltaxd"
 
 from .api import GaanaAPI
