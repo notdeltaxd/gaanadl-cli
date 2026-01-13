@@ -27,7 +27,7 @@ def get_requirements():
     ]
 
 setup(
-    name="gaana-cli",
+    name="gaanapy",
     version=VERSION,
     description="Download high-quality music from Gaana with metadata and synced lyrics",
     long_description=read_file("README.md"),

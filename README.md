@@ -21,7 +21,7 @@ Download high-quality music from Gaana with metadata and synced lyrics.
 **Requirements:** Python 3.8+ and [FFmpeg](https://ffmpeg.org/download.html)
 
 ```bash
-pip install gaana-cli
+pip install gaanapy
 ```
 
 Or install from source:
