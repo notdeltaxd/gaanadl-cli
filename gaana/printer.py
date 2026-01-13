@@ -34,7 +34,7 @@ console = Console(theme=custom_theme)
 
 def print_banner():
     """Print ASCII art banner."""
-    banner = pyfiglet.figlet_format("Gaana CLI", font="slant")
+    banner = pyfiglet.figlet_format("gaanadl", font="slant")
     console.print(f"[bold cyan]{banner}[/bold cyan]")
     console.print("[dim]High-quality music downloader for Gaana[/dim]\n")
 
