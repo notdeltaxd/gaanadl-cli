@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.2] - 2026-01-13
+
+### Fixed
+- `--limit` flag now correctly limits results for `--trending` and `--new-releases`
+- `-t song/track` search filter now only shows songs (previously showed all types)
+
+### Added
+- Preview Mode documentation in README with note that `--show-results` doesn't download
+
 ## [1.2.1] - 2026-01-13
 
 ### Fixed
