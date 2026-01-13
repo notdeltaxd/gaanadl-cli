@@ -4,6 +4,7 @@ Orchestrates the download, conversion, and metadata embedding process.
 """
 
 import os
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -114,9 +115,26 @@ class GaanaDownloader:
                 print_error(f"{progress_prefix}Track ID not found in response")
                 return None
             
-            # Get stream URL
+            # Get stream URL with retry
             info(f"{progress_prefix}Fetching stream URL...")
-            stream_info = self.api.get_stream(str(track_id), self.quality)
+            stream_info = None
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    stream_info = self.api.get_stream(str(track_id), self.quality)
+                    if stream_info:
+                        break
+                except Exception as e:
+                    if attempt < max_retries - 1:
+                        warning(f"{progress_prefix}Stream fetch failed, retry {attempt + 1}/{max_retries}...")
+                        time.sleep(1)
+                    else:
+                        print_error(f"{progress_prefix}Stream URL failed after {max_retries} attempts: {e}")
+                        return None
+            
+            if not stream_info:
+                print_error(f"{progress_prefix}Failed to get stream URL")
+                return None
             
             # Prepare output paths
             artist = track.get("artists", track.get("primary_artists", "Unknown Artist"))

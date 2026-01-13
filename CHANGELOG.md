@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-01-14
+
+### Added
+- Retry logic for stream URL fetching (3 retries with 1s delay)
+- Handles transient connection errors gracefully
+
+### Improved
+- Download speed: 8 parallel workers (was 4), 64KB chunks (was 8KB)
+- HTTP connection pooling with 20 concurrent connections
+- FFmpeg multi-threading for faster conversion (`-threads 0`)
+
 ## [1.2.2] - 2026-01-13
 
 ### Fixed
