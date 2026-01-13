@@ -23,7 +23,7 @@ class LyricsProvider:
         self.timeout = timeout
         self.session = requests.Session()
         self.session.headers.update({
-            "User-Agent": "Gaana-CLI/1.0 (https://github.com/user/gaana-cli)",
+            "User-Agent": "gaanadl-cli/1.0 (https://github.com/notdeltaxd/gaanadl-cli)",
             "Accept": "application/json",
         })
     

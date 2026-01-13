@@ -5,7 +5,7 @@
 
 Download high-quality music from Gaana with metadata and synced lyrics.
 
-![Demo](https://raw.githubusercontent.com/notdeltaxd/Gaana-CLI/main/demo.gif)
+![Demo](https://raw.githubusercontent.com/notdeltaxd/gaanadl-cli/main/demo.gif)
 
 ## Features
 
@@ -21,13 +21,13 @@ Download high-quality music from Gaana with metadata and synced lyrics.
 **Requirements:** Python 3.8+ and [FFmpeg](https://ffmpeg.org/download.html)
 
 ```bash
-pip install gaanapy
+pip install gaanadl-cli
 ```
 
 Or install from source:
 ```bash
-git clone https://github.com/notdeltaxd/Gaana-CLI.git
-cd gaana-cli
+git clone https://github.com/notdeltaxd/gaanadl-cli.git
+cd gaanadl-cli
 pip install -e .
 ```
 

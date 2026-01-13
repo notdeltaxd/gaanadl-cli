@@ -24,7 +24,7 @@ from .printer import info, warning
 class MetadataHandler:
     """Handles metadata embedding for audio files."""
     
-    ENCODER = "Gaana-CLI"
+    ENCODER = "gaanadl-cli"
     COMMENT = "Downloaded from Gaana"
     
     def __init__(self):

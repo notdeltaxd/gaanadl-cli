@@ -1,5 +1,5 @@
 """
-Gaana-CLI setup script.
+gaanadl-cli setup script.
 """
 
 from setuptools import find_packages, setup
@@ -27,16 +27,16 @@ def get_requirements():
     ]
 
 setup(
-    name="gaanapy",
+    name="gaanadl-cli",
     version=VERSION,
     description="Download high-quality music from Gaana with metadata and synced lyrics",
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
     author="notdeltaxd",
-    url="https://github.com/notdeltaxd/Gaana-CLI",
+    url="https://github.com/notdeltaxd/gaanadl-cli",
     project_urls={
-        "Bug Reports": "https://github.com/notdeltaxd/Gaana-CLI/issues",
-        "Source": "https://github.com/notdeltaxd/Gaana-CLI",
+        "Bug Reports": "https://github.com/notdeltaxd/gaanadl-cli/issues",
+        "Source": "https://github.com/notdeltaxd/gaanadl-cli",
     },
     license="MIT",
     keywords=["gaana", "music", "downloader", "cli", "flac", "lyrics"],

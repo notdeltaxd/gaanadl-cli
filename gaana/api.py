@@ -20,7 +20,7 @@ class GaanaAPI:
         self.timeout = timeout
         self.session = requests.Session()
         self.session.headers.update({
-            "User-Agent": "Gaana-CLI/1.0",
+            "User-Agent": "gaanadl-cli/1.0",
             "Accept": "application/json",
         })
     

@@ -1,11 +1,11 @@
-# Contributing to Gaana CLI
+# Contributing to gaanadl-cli
 
 Thanks for your interest in contributing! Here's how you can help.
 
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/gaana-cli.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/gaanadl-cli.git`
 3. Create a branch: `git checkout -b feature/your-feature`
 4. Install dev dependencies: `pip install -e .`
 
