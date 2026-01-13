@@ -217,8 +217,9 @@ def create_parser() -> argparse.ArgumentParser:
     
     parser.add_argument(
         "-v", "--version",
-        action="version",
-        version="%(prog)s 1.0.0",
+        action="store_true",
+        dest="show_version",
+        help="Show version and exit",
     )
     
     parser.add_argument(
@@ -298,6 +299,16 @@ def main():
     # Show colored help
     if args.show_help:
         print_colored_help()
+        sys.exit(0)
+    
+    # Show rich version
+    if args.show_version:
+        from . import __version__
+        print_banner()
+        console.print(f"[bold cyan]Version:[/bold cyan] {__version__}")
+        console.print(f"[bold cyan]Python:[/bold cyan] {sys.version.split()[0]}")
+        console.print(f"[bold cyan]GitHub:[/bold cyan] https://github.com/notdeltaxd/gaanadl-cli")
+        console.print(f"[bold cyan]PyPI:[/bold cyan] https://pypi.org/project/gaanadl-cli/")
         sys.exit(0)
     
     # Show banner
